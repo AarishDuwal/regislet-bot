@@ -1,4 +1,4 @@
-
+// Auto-generated from venenako CSV database
 const regislets = [
   {
     name: "Accuracy Boost",

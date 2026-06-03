@@ -11,6 +11,7 @@ const {
   SlashCommandBuilder,
 } = require('discord.js');
 const regislets = require('./data/regislets');
+const traits = require('./data/traits');
 
 // ─── Validate environment ──────────────────────────────────────────────────────
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -54,6 +55,19 @@ function getAllLocations() {
   return [...set].sort();
 }
 
+// ─── Trait search helpers ─────────────────────────────────────────────────────
+function searchTraitByName(query) {
+  const q = normalize(query);
+  if (!q) return [];
+  const exact = traits.filter(t => normalize(t.name) === q);
+  if (exact.length) return exact;
+  return traits.filter(t => normalize(t.name).includes(q));
+}
+
+function searchTraitByTier(tier) {
+  return traits.filter(t => t.tiers.includes(tier));
+}
+
 // ─── Embed colours ────────────────────────────────────────────────────────────
 const COLORS = {
   primary: 0x5865f2,    // Discord blurple
@@ -85,7 +99,7 @@ function buildRegisletEmbed(r) {
         inline: false,
       }
     )
-    .setFooter({ text: 'Regislet Guide  •  /regislet_help  •  Data Credits: venenako' })
+    .setFooter({ text: 'Guide  •  /regislet  /traits  Data credits: venenako' })
     .setTimestamp();
 
   return embed;
@@ -130,6 +144,60 @@ function buildLocationPageEmbed(results, query, pageIndex, totalPages) {
     .setDescription(`Found **${results.length}** regislet(s)  •  Page **${pageIndex + 1}** / **${totalPages}**`);
 
   return embed;
+}
+
+// ─── Trait embed builders ─────────────────────────────────────────────────────
+const TIER_COLORS = { 1: 0x99aab5, 2: 0x57f287, 3: 0x5865f2, 4: 0xfee75c, 5: 0xed4245 };
+const TIER_LABELS = { 1: '⬜ Tier 1', 2: '🟩 Tier 2', 3: '🟦 Tier 3', 4: '🟨 Tier 4', 5: '🟥 Tier 5' };
+
+function buildTraitEmbed(t) {
+  const highestTier = Math.max(...t.tiers);
+  return new EmbedBuilder()
+    .setColor(TIER_COLORS[highestTier] || COLORS.primary)
+    .setTitle(`✨  ${t.name}`)
+    .setDescription(`> ${t.effect || '_No description available._'}`)
+    .addFields({ name: '🏷️ Available in', value: t.tiers.map(n => TIER_LABELS[n]).join('  '), inline: false })
+    .setFooter({ text: 'Item Traits  •  /trait  /trait_list  /trait_tier  •  Data: Coryn.Club' })
+    .setTimestamp();
+}
+
+function buildTraitMultiEmbed(results, query) {
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.primary)
+    .setTitle(`🔍  Trait Results for "${query}"`)
+    .setDescription(`Found **${results.length}** trait(s). Use \`/trait <exact name>\` for full details.`);
+  results.slice(0, 10).forEach(t => {
+    embed.addFields({
+      name: t.name,
+      value: [
+        t.effect ? (t.effect.length > 90 ? t.effect.slice(0, 90) + '…' : t.effect) : '_No description_',
+        t.tiers.map(n => TIER_LABELS[n]).join(' '),
+      ].join('\n'),
+      inline: false,
+    });
+  });
+  if (results.length > 10) embed.setFooter({ text: `Showing 10 of ${results.length} results.` });
+  return embed;
+}
+
+function buildTraitTierPageEmbed(page, tier, pageIndex, totalPages, totalCount) {
+  return new EmbedBuilder()
+    .setColor(TIER_COLORS[tier] || COLORS.primary)
+    .setTitle(`${TIER_LABELS[tier]}  Traits  —  Page ${pageIndex + 1} / ${totalPages}`)
+    .setDescription(
+      page.map(t => `✨ **${t.name}**\n${t.effect ? (t.effect.length > 80 ? t.effect.slice(0, 80) + '…' : t.effect) : '_No description_'}`).join('\n\n')
+    )
+    .setFooter({ text: `${totalCount} traits in Tier ${tier}  •  /trait <name> for full details` });
+}
+
+function buildTraitListPageEmbed(page, pageIndex, totalPages, totalCount) {
+  return new EmbedBuilder()
+    .setColor(COLORS.primary)
+    .setTitle(`📋  All Traits  —  Page ${pageIndex + 1} / ${totalPages}`)
+    .setDescription(
+      page.map(t => `✨ **${t.name}** *(T${t.tiers.join('/T')})*`).join('\n')
+    )
+    .setFooter({ text: `${totalCount} total traits  •  /trait <name> for full details` });
 }
 
 function buildListPageEmbed(page, pageIndex, totalPages, totalCount) {
@@ -198,6 +266,36 @@ const commands = [
   new SlashCommandBuilder()
     .setName('regislet_help')
     .setDescription('Show all available Regislet Bot commands and how to use them'),
+
+  new SlashCommandBuilder()
+    .setName('trait')
+    .setDescription('Search an item trait by name')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Trait name — partial match supported, autocomplete available')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('trait_tier')
+    .setDescription('Browse all traits available in a specific tier')
+    .addIntegerOption(opt =>
+      opt.setName('tier')
+        .setDescription('Tier number (1–5)')
+        .setRequired(true)
+        .addChoices(
+          { name: '⬜ Tier 1', value: 1 },
+          { name: '🟩 Tier 2', value: 2 },
+          { name: '🟦 Tier 3', value: 3 },
+          { name: '🟨 Tier 4', value: 4 },
+          { name: '🟥 Tier 5', value: 5 },
+        )
+    ),
+
+  new SlashCommandBuilder()
+    .setName('trait_list')
+    .setDescription('Browse all item traits alphabetically (paginated)'),
 ].map(cmd => cmd.toJSON());
 
 // ─── Bot ready ────────────────────────────────────────────────────────────────
@@ -226,7 +324,7 @@ client.once('ready', async () => {
   }
 
   // Set bot activity
-  client.user.setActivity(`${regislets.length} regislets | /regislet_help`, { type: 3 /* Watching */ });
+  client.user.setActivity(`${regislets.length} regislets | ${traits.length} traits | /regislet_help`, { type: 3 });
 });
 
 // ─── Pagination cache ─────────────────────────────────────────────────────────
@@ -261,6 +359,15 @@ client.on('interactionCreate', async interaction => {
         .slice(0, 25)
         .map(loc => ({ name: loc, value: loc }));
       return interaction.respond(locations).catch(() => {});
+    }
+
+    if (focused.name === 'name' && interaction.commandName === 'trait') {
+      const q = normalize(focused.value);
+      const matches = (q
+        ? traits.filter(t => normalize(t.name).includes(q))
+        : traits.slice(0, 25)
+      ).slice(0, 25).map(t => ({ name: t.name, value: t.name }));
+      return interaction.respond(matches).catch(() => {});
     }
 
     return;
@@ -395,13 +502,81 @@ client.on('interactionCreate', async interaction => {
             '• Use partial names (e.g. `wind` instead of `Wind Talent`).',
             '• Gray items have no recorded drop source yet.',
           ].join('\n'),
-        }
+        },
+        {
+          name: '\u200b',
+          value: '**✨ Item Trait Commands**',
+        },
+        {
+          name: '`/trait <name>`',
+          value: 'Search for an item trait by name.\n*Example: `/trait vengeful power`*',
+        },
+        {
+          name: '`/trait_tier <tier>`',
+          value: 'Browse all traits available in a specific tier (1–5).\n*Example: `/trait_tier 5`*',
+        },
+        {
+          name: '`/trait_list`',
+          value: 'Browse all item traits alphabetically with pagination.',
+        },
       )
-      .setFooter({ text: `${regislets.length} regislets in database` })
+      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits in database` })
       .setTimestamp();
 
     return interaction.reply({ embeds: [embed], ephemeral: true });
   }
+  // ── /trait ───────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'trait') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchTraitByName(query);
+
+    if (!results.length) {
+      return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'trait')], ephemeral: true });
+    }
+    if (results.length === 1) {
+      return interaction.reply({ embeds: [buildTraitEmbed(results[0])] });
+    }
+    return interaction.reply({ embeds: [buildTraitMultiEmbed(results, query)] });
+  }
+
+  // ── /trait_tier ──────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'trait_tier') {
+    const tier = interaction.options.getInteger('tier');
+    const results = searchTraitByTier(tier);
+
+    const PAGE_SIZE = 8;
+    const pages = [];
+    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => buildTraitTierPageEmbed(pages[pageIndex], tier, pageIndex, pages.length, results.length);
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('tier', 0, pages.length),
+      fetchReply: true,
+    });
+
+    storePages(msg.id, { pages, buildPage, prefix: 'tier' });
+  }
+
+  // ── /trait_list ──────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'trait_list') {
+    const sorted = [...traits].sort((a, b) => a.name.localeCompare(b.name));
+    const PAGE_SIZE = 15;
+    const pages = [];
+    for (let i = 0; i < sorted.length; i += PAGE_SIZE) pages.push(sorted.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => buildTraitListPageEmbed(pages[pageIndex], pageIndex, pages.length, sorted.length);
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('traitlist', 0, pages.length),
+      fetchReply: true,
+    });
+
+    storePages(msg.id, { pages, buildPage, prefix: 'traitlist' });
+  }
+
 });
 
 // ─── Error handling ───────────────────────────────────────────────────────────
