@@ -85,7 +85,7 @@ function buildRegisletEmbed(r) {
         inline: false,
       }
     )
-    .setFooter({ text: 'Regislet Guide  •  /regislet_help  •  Data Credits: Coryn.Club' })
+    .setFooter({ text: 'Regislet Guide  •  /regislet_help  •  Data Credits: venenako' })
     .setTimestamp();
 
   return embed;
