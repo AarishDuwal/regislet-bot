@@ -100,7 +100,6 @@ function buildRegisletEmbed(r) {
       }
     )
     .setFooter({ text: 'Guide  •  /regislet  /traits  Data credits: venenako' })
-    .setTimestamp();
 
   return embed;
 }
@@ -343,8 +342,17 @@ client.on('interactionCreate', async interaction => {
   if (interaction.isAutocomplete()) {
     const focused = interaction.options.getFocused(true);
 
+    const q = normalize(focused.value);
+
+    if (focused.name === 'name' && interaction.commandName === 'trait') {
+      const matches = (q
+        ? traits.filter(t => normalize(t.name).includes(q))
+        : traits.slice(0, 25)
+      ).slice(0, 25).map(t => ({ name: t.name, value: t.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
     if (focused.name === 'name') {
-      const q = normalize(focused.value);
       const matches = (q
         ? regislets.filter(r => normalize(r.name).includes(q))
         : regislets.slice(0, 25)
@@ -353,21 +361,11 @@ client.on('interactionCreate', async interaction => {
     }
 
     if (focused.name === 'location') {
-      const q = normalize(focused.value);
       const locations = getAllLocations()
         .filter(loc => normalize(loc).includes(q))
         .slice(0, 25)
         .map(loc => ({ name: loc, value: loc }));
       return interaction.respond(locations).catch(() => {});
-    }
-
-    if (focused.name === 'name' && interaction.commandName === 'trait') {
-      const q = normalize(focused.value);
-      const matches = (q
-        ? traits.filter(t => normalize(t.name).includes(q))
-        : traits.slice(0, 25)
-      ).slice(0, 25).map(t => ({ name: t.name, value: t.name }));
-      return interaction.respond(matches).catch(() => {});
     }
 
     return;
