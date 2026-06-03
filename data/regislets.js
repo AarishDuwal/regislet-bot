@@ -6,21 +6,21 @@ const regislets = [
     maxLevel: 1,
     affects: "Wind element skills",
     effect: "Sets skill effects that change based on element to wind element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Water Talent",
     maxLevel: 1,
     affects: "Water element skills",
     effect: "Sets skill effects that change based on element to Water element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Water Release: Aqua Mirror",
     maxLevel: 1,
     affects: "Water Release",
     effect: 'Changes "Water Release" from a deployable skill to a buff skill.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Violent Lunar Misfortune",
@@ -28,7 +28,7 @@ const regislets = [
     affects: "Lunar Misfortune",
     effect:
       "While Storm Reaper's buff is active the skill \"Lunar Misfortune\" becomes a close-range attack regardless of distance. (15 - Regislet Level) seconds cooldown after activation.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Unsheather Wind Release",
@@ -36,7 +36,7 @@ const regislets = [
     affects: "Wind Release",
     effect:
       'Adds Magic Pierce (5% per Regislet Level) attribute to the skill "Wind Release" and when the skill changes, an Unsheathe Attack attribute is added.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Target Declaration",
@@ -44,14 +44,14 @@ const regislets = [
     affects: null,
     effect:
       "When you are drawing the enemy's attention (aggro), you will declare it through Party Chat. If it is a Guild RAID, you will declare it through Say Chat.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Sprint Sheathe Remover",
     maxLevel: 1,
     affects: null,
     effect: "Sheathing while moving will no longer occur.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Sneak Attack Timer",
@@ -59,7 +59,7 @@ const regislets = [
     affects: "Sneak Attack",
     effect:
       'The skill "Sneak Attack" changes into a time-based buff instead of remaining use-based.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Role Model",
@@ -67,7 +67,7 @@ const regislets = [
     affects: null,
     effect:
       "Greatly suppresses your own damage output to increase your party members' EXP Gain by 1(+1 per Regislet Level)%.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Red Zone Shield",
@@ -75,7 +75,7 @@ const regislets = [
     affects: null,
     effect:
       "Reduces the damage from monster attacks shown with a red warning by 1(+1 per Regislet Level)%. However, damage taken from single-target attacks increases by 10%. This damage reduction applies multiplicatively with other damage reductions such as Refinement, Resistance.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Purifying Twin Buster Blade",
@@ -83,7 +83,7 @@ const regislets = [
     affects: "Twin Buster Blade",
     effect:
       'The power of "Twin Buster Blade" now increases based on the number of debuffs (max 1 types × Regislet Level) on the target.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Protection Aegis",
@@ -91,7 +91,7 @@ const regislets = [
     affects: null,
     effect:
       "When [Protection] is activated, the [Aegis] you've acquired will also be activated at the same time. Likewise, when [Aegis] is activated, the [Protection] you've acquired will also be activated at the same time.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Perfect Triple Thrust",
@@ -99,7 +99,7 @@ const regislets = [
     affects: "Triple Thrust",
     effect:
       "Restores (10 × Regislet Level) MP if [Triple Thrust] is successfully activated without taking any damage when used alone.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Parrier Storm Blaze",
@@ -107,7 +107,7 @@ const regislets = [
     affects: "Storm Blaze",
     effect:
       'A Guard check is added to the skill "Storm Blaze". A successful Guard will double the amount of MP recovered.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Moonlight Crescent Saber",
@@ -115,7 +115,7 @@ const regislets = [
     affects: "Crescent Saber",
     effect:
       'While "Crescent Saber" is active, all aggro generated will be reduced by 15% per Regislet Level. This effect does not activate if you are being targeted.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Meteor Magic: Crash",
@@ -123,7 +123,7 @@ const regislets = [
     affects: "Magic: Crash",
     effect:
       'The meteorites from "Magic: Crash" become much smaller in size, but the time of impact is shortened by (0.1 × Regislet Level - 0.1) and all meteorites will drop down even when not hitting the target.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Mega Demon Wind Shuriken",
@@ -131,7 +131,7 @@ const regislets = [
     affects: null,
     effect:
       "MP Cost of [Demon Wind Shuriken] increases by [200 - (100 × Regislet Level)], but the number of times the shuriken can hit without reduced damage is increased by 1.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro", "Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Maximizer Converter",
@@ -139,7 +139,7 @@ const regislets = [
     affects: null,
     effect:
       "Switches [Maximizer] to activate MP Charge instead when used alone. Not part of a combo and the condition for instant activation is not met.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Magic: Storm Extender",
@@ -147,7 +147,7 @@ const regislets = [
     affects: "Magic: Storm",
     effect:
       'Lowers the power of "Magic: Storm" by 50% to make its effect last 1s(+1s per Regislet Level) longer.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Lunas Slash Absorber",
@@ -155,14 +155,14 @@ const regislets = [
     affects: "Lunas Slash",
     effect:
       'All "Lunas Slash" stacks are now consumed and MP is restored based on the number of stacks consumed. MP recovery amount is 1 MP × Regislet Level × Lunar Slash Stack Consumed. Lunar Slash stack additional damage is disabled when equipping this regislet.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Light Talent",
     maxLevel: 1,
     affects: "Light element skills",
     effect: "Sets skill effects that change based on element to light element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Knight's Intuition",
@@ -170,7 +170,7 @@ const regislets = [
     affects: null,
     effect:
       "Anticipate increases by 5% if a one-handed sword is equipped. Equipping a shield will triple the amount increased.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Ironhearted Chronos Drive",
@@ -178,7 +178,7 @@ const regislets = [
     affects: "Chronos Drive",
     effect:
       'Changes the additional attack effect of "Chronos Drive" from magic attack (based on INT) to physical attack (based on STR). Scaling remains the same. Proration usage of additional hits changes to physical proration.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Iron Fist",
@@ -186,7 +186,7 @@ const regislets = [
     affects: null,
     effect:
       "Guard Break increases by (1% per Regislet Level) when barehanded or equipping knuckles (main only). The amount increased will be tripled if sub-weapon is empty.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Invincible Dauntless",
@@ -194,7 +194,7 @@ const regislets = [
     affects: "Dauntless",
     effect:
       '"Dauntless" accumulates 1 second faster, but the count will decrease by 9(- 3 per Regislet Level) when taking damage. However, it won\'t decrease if the damage is blocked with Guard or certain Mononofu skills.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Instructor",
@@ -202,7 +202,7 @@ const regislets = [
     affects: null,
     effect:
       "Sets your own EXP Gain to 0 to increase the EXP Gain of the party member with the lowest level by 1% per Regislet Level. Less effective if there are multiple recipients.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Healing Hands",
@@ -210,21 +210,21 @@ const regislets = [
     affects: null,
     effect:
       "Alleviates the reduced recovery of Heal-related Regislets by (10% per Regislet Level).",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Frugal Breathwork",
     maxLevel: 1,
     affects: null,
     effect: "Reduces the MP Cost of [Breathwork] by 100.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Fire Talent",
     maxLevel: 1,
     affects: "Fire element skills",
     effect: "Sets skill effects that change based on element to Fire element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Fighter's Magic: Impact",
@@ -232,7 +232,7 @@ const regislets = [
     affects: null,
     effect:
       "Changes the proration dealt by [Magic: Impact] to physical proration.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Extreme Chronos Shift",
@@ -240,7 +240,7 @@ const regislets = [
     affects: "Chronos Shift",
     effect:
       '"Chronos Shift" can be activated even if there is not enough MP by consuming HP. 60(-10% per Regislet Level)% HP is required per 100 MP you\'re short of. This HP consumption could get you knocked out.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Exclusive Bodyguard",
@@ -248,7 +248,7 @@ const regislets = [
     affects: "Defender",
     effect:
       'Reduces the Physical/Magic/Fractional Damage received by the mercenary or partner summoned as a "Defender" by (3 × Regislet Level)%.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Evasive Floating Kick",
@@ -256,14 +256,14 @@ const regislets = [
     affects: null,
     effect:
       "Gain [Invincible] for 1 second if [Floating Kick] is activated while moving.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Evasion Set",
     maxLevel: 1,
     affects: null,
     effect: "Evasion becomes usable even with equipment that doesn't allow it.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Ether Flare Extender",
@@ -271,7 +271,7 @@ const regislets = [
     affects: "Ether Flare",
     effect:
       "Doubles the duration of the [Ether Flare] buff, but halves the buff's AMPR gain.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 210) — El Scaro"],
   },
   {
     name: "Emergency Care",
@@ -279,14 +279,14 @@ const regislets = [
     affects: "First Aid",
     effect:
       'Reduces the MP Aggro triggered by "First Aid" by (1 × Regislet Level). Up to MP Cost 100 at the minimum.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Earth Talent",
     maxLevel: 1,
     affects: "Earth element skills",
     effect: "Sets skill effects that change based on element to Earth element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 220) — El Scaro"],
   },
   {
     name: "Dragon Fire Release",
@@ -294,7 +294,7 @@ const regislets = [
     affects: null,
     effect:
       "The time to cast [Fire Release] is increased by 1 second, but the skill gains (2.5 × Regislet Level)% Magic Pierce. This increase in Magic Pierce doubles if [Blazing Explosion] is triggered.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Distinct Parabola Cannon",
@@ -302,7 +302,7 @@ const regislets = [
     affects: "Parabola Cannon",
     effect:
       'The skill "Parabola Cannon" now only hits monsters currently in combat and guarantees a critical hit.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Distant Buster Lance",
@@ -310,7 +310,7 @@ const regislets = [
     affects: "Buster Lance",
     effect:
       'Increases the power of "Buster Lance" by (10% per Regislet Level). The range and distance at which the power starts to weaken is increased, making it always a long-range attack.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Direct Sonic Thrust",
@@ -318,14 +318,14 @@ const regislets = [
     affects: "Sonic Thrust",
     effect:
       'The skill "Sonic Thrust" loses its swift effect, but gains an effect that ignores Evasion in return.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Dark Talent",
     maxLevel: 1,
     affects: "Dark element skills",
     effect: "Sets skill effects that change based on element to dark element.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Damage Check",
@@ -333,7 +333,7 @@ const regislets = [
     affects: null,
     effect:
       "Displays an additional warning message when stepping on a warning area if the damage from the attack exceeds 50% of your current HP.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
   {
     name: "Check Out Notice",
@@ -341,7 +341,7 @@ const regislets = [
     affects: null,
     effect:
       "When you get knocked out, you will declare it through Party Chat. If it is a Guild RAID, you will declare it through Say Chat.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 230) — El Scaro"],
   },
   {
     name: "Blue Zone Shield",
@@ -349,7 +349,7 @@ const regislets = [
     affects: null,
     effect:
       "Reduces the damage from monster attacks shown with a blue warning by 1(+1 per Regislet Level)%. However, damage taken from single-target attacks increases by 10%. This damage reduction applies multiplicatively with other damage reductions such as Refinement, Resistance.",
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Berserk Rush",
@@ -357,7 +357,7 @@ const regislets = [
     affects: "Berserk",
     effect:
       'Reduces the negative effect of "Berserk" by (1 × Regislet Level)% if you take damage from a monster while the skill is active.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 270) — El Scaro"],
   },
   {
     name: "Aura Blade Force",
@@ -365,7 +365,7 @@ const regislets = [
     affects: "Aura Blade",
     effect:
       'Releases a shock wave (single target attack). Dealing 10(+10 per Regislet Level)% damage if the monster targeted by "Aura Blade" is out of range.',
-    obtainedFrom: ["No drop source recorded yet"],
+    obtainedFrom: ["Stoodie (Lv 250) — El Scaro"],
   },
 
   // ─── STOODIE (Lv 10) ─────────────────────────────────────────────────────
