@@ -446,10 +446,10 @@ const commands = [
     .setDescription('Calculate EXP needed to reach next level + boss kills required')
     .addIntegerOption(opt =>
       opt.setName('level')
-        .setDescription('Your current level (1–314)')
+        .setDescription('Your current level (1–399)')
         .setRequired(true)
         .setMinValue(1)
-        .setMaxValue(314)
+        .setMaxValue(399)
     )
     .addNumberOption(opt =>
       opt.setName('percent')
@@ -464,10 +464,10 @@ const commands = [
     .setDescription('Plan your path from current level+% to a target level, with bosses every 9 levels')
     .addIntegerOption(opt =>
       opt.setName('current_level')
-        .setDescription('Your current level (1–314)')
+        .setDescription('Your current level (1–399)')
         .setRequired(true)
         .setMinValue(1)
-        .setMaxValue(314)
+        .setMaxValue(399)
     )
     .addNumberOption(opt =>
       opt.setName('percent')
@@ -478,10 +478,10 @@ const commands = [
     )
     .addIntegerOption(opt =>
       opt.setName('target_level')
-        .setDescription('Your target level (2–315)')
+        .setDescription('Your target level (2–400)')
         .setRequired(true)
         .setMinValue(2)
-        .setMaxValue(315)
+        .setMaxValue(400)
     ),
 
   new SlashCommandBuilder()
@@ -744,7 +744,7 @@ client.on('interactionCreate', async interaction => {
           ].join('\n'),
         }
       )
-      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  315 levels` })
+      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  400 levels` })
       .setTimestamp();
 
     return interaction.reply({ embeds: [embed], ephemeral: true });

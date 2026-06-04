@@ -112640,5 +112640,2383 @@
         }
       }
     ]
+  },
+  "316": {
+    "level": 316,
+    "expRequired": 249281154,
+    "bosses": [
+      {
+        "name": "Humida",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1422200,
+          "twoBreak": 1313800,
+          "oneBreak": 1205400,
+          "zeroBreak": 1097000
+        }
+      },
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 323,
+        "location": "Aquastida Central",
+        "exp": {
+          "fullBreak": 3460914,
+          "twoBreak": 3380436,
+          "oneBreak": 3299958,
+          "zeroBreak": 3219480
+        }
+      },
+      {
+        "name": "Raging Dragon Bovinari",
+        "difficulty": "Ultimate",
+        "bossLevel": 308,
+        "location": "Little Shrine of Grace Sanctuary",
+        "exp": {
+          "fullBreak": 2352000,
+          "twoBreak": 2352000,
+          "oneBreak": 2352000,
+          "zeroBreak": 2352000
+        }
+      }
+    ]
+  },
+  "317": {
+    "level": 317,
+    "expRequired": 252451615,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1008000,
+          "twoBreak": 1008000,
+          "oneBreak": 1008000,
+          "zeroBreak": 1008000
+        }
+      },
+      {
+        "name": "Humida",
+        "difficulty": "Ultimate",
+        "bossLevel": 311,
+        "location": "Marinatown: Giant Plastida",
+        "exp": {
+          "fullBreak": 3430000,
+          "twoBreak": 3430000,
+          "oneBreak": 3430000,
+          "zeroBreak": 3430000
+        }
+      },
+      {
+        "name": "Raging Dragon Bovinari",
+        "difficulty": "Ultimate",
+        "bossLevel": 308,
+        "location": "Little Shrine of Grace Sanctuary",
+        "exp": {
+          "fullBreak": 1008000,
+          "twoBreak": 1008000,
+          "oneBreak": 1008000,
+          "zeroBreak": 1008000
+        }
+      }
+    ]
+  },
+  "318": {
+    "level": 318,
+    "expRequired": 255652224,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 995540,
+          "twoBreak": 919660,
+          "oneBreak": 843780,
+          "zeroBreak": 767900
+        }
+      },
+      {
+        "name": "Humida",
+        "difficulty": "Ultimate",
+        "bossLevel": 311,
+        "location": "Marinatown: Giant Plastida",
+        "exp": {
+          "fullBreak": 3087000,
+          "twoBreak": 3087000,
+          "oneBreak": 3087000,
+          "zeroBreak": 3087000
+        }
+      }
+    ]
+  },
+  "319": {
+    "level": 319,
+    "expRequired": 258883169,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 426660,
+          "twoBreak": 394140,
+          "oneBreak": 361620,
+          "zeroBreak": 329100
+        }
+      },
+      {
+        "name": "Humida",
+        "difficulty": "Ultimate",
+        "bossLevel": 311,
+        "location": "Marinatown: Giant Plastida",
+        "exp": {
+          "fullBreak": 2401000,
+          "twoBreak": 2401000,
+          "oneBreak": 2401000,
+          "zeroBreak": 2401000
+        }
+      }
+    ]
+  },
+  "320": {
+    "level": 320,
+    "expRequired": 262144643,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1029000,
+          "twoBreak": 1029000,
+          "oneBreak": 1029000,
+          "zeroBreak": 1029000
+        }
+      },
+      {
+        "name": "Humida",
+        "difficulty": "Ultimate",
+        "bossLevel": 311,
+        "location": "Marinatown: Giant Plastida",
+        "exp": {
+          "fullBreak": 1029000,
+          "twoBreak": 1029000,
+          "oneBreak": 1029000,
+          "zeroBreak": 1029000
+        }
+      }
+    ]
+  },
+  "321": {
+    "level": 321,
+    "expRequired": 265436837,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "322": {
+    "level": 322,
+    "expRequired": 268759944,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "323": {
+    "level": 323,
+    "expRequired": 272114156,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "324": {
+    "level": 324,
+    "expRequired": 275499666,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "325": {
+    "level": 325,
+    "expRequired": 278916669,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "326": {
+    "level": 326,
+    "expRequired": 282365360,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "327": {
+    "level": 327,
+    "expRequired": 285845934,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "328": {
+    "level": 328,
+    "expRequired": 289358586,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 4230006,
+          "twoBreak": 4131644,
+          "oneBreak": 4033282,
+          "zeroBreak": 3934920
+        }
+      }
+    ]
+  },
+  "329": {
+    "level": 329,
+    "expRequired": 292903514,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 3845460,
+          "twoBreak": 3756040,
+          "oneBreak": 3666620,
+          "zeroBreak": 3577200
+        }
+      }
+    ]
+  },
+  "330": {
+    "level": 330,
+    "expRequired": 296480914,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 3460914,
+          "twoBreak": 3380436,
+          "oneBreak": 3299958,
+          "zeroBreak": 3219480
+        }
+      }
+    ]
+  },
+  "331": {
+    "level": 331,
+    "expRequired": 300090984,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 2691822,
+          "twoBreak": 2629228,
+          "oneBreak": 2566634,
+          "zeroBreak": 2504040
+        }
+      }
+    ]
+  },
+  "332": {
+    "level": 332,
+    "expRequired": 303733922,
+    "bosses": [
+      {
+        "name": "Biskyva",
+        "difficulty": "Ultimate",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1153638,
+          "twoBreak": 1126812,
+          "oneBreak": 1099986,
+          "zeroBreak": 1073160
+        }
+      }
+    ]
+  },
+  "333": {
+    "level": 333,
+    "expRequired": 307409928,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Hard",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Piscruva",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "334": {
+    "level": 334,
+    "expRequired": 311119201,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Hard",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Piscruva",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "335": {
+    "level": 335,
+    "expRequired": 314861940,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Hard",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Piscruva",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "336": {
+    "level": 336,
+    "expRequired": 318638347,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Hard",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "337": {
+    "level": 337,
+    "expRequired": 322448622,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "338": {
+    "level": 338,
+    "expRequired": 326292969,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Supreme Evil Crystal Beast",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "339": {
+    "level": 339,
+    "expRequired": 330171588,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "340": {
+    "level": 340,
+    "expRequired": 334084684,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "341": {
+    "level": 341,
+    "expRequired": 338032461,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Bakuzan",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "342": {
+    "level": 342,
+    "expRequired": 342015121,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "343": {
+    "level": 343,
+    "expRequired": 346032871,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "344": {
+    "level": 344,
+    "expRequired": 350085915,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Rondine",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "345": {
+    "level": 345,
+    "expRequired": 354174460,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "346": {
+    "level": 346,
+    "expRequired": 358298713,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Nightmare",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "347": {
+    "level": 347,
+    "expRequired": 362458881,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gula",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "348": {
+    "level": 348,
+    "expRequired": 366655171,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "349": {
+    "level": 349,
+    "expRequired": 370887793,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "350": {
+    "level": 350,
+    "expRequired": 375156955,
+    "bosses": [
+      {
+        "name": "Grandanbit",
+        "difficulty": "Normal",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Goudvis",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "351": {
+    "level": 351,
+    "expRequired": 379462867,
+    "bosses": [
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "352": {
+    "level": 352,
+    "expRequired": 383805740,
+    "bosses": [
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "353": {
+    "level": 353,
+    "expRequired": 388185783,
+    "bosses": [
+      {
+        "name": "Puiet",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "354": {
+    "level": 354,
+    "expRequired": 392603210,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mortares",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "355": {
+    "level": 355,
+    "expRequired": 397058231,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "356": {
+    "level": 356,
+    "expRequired": 401551060,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "357": {
+    "level": 357,
+    "expRequired": 406081910,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "358": {
+    "level": 358,
+    "expRequired": 410650994,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "359": {
+    "level": 359,
+    "expRequired": 415258528,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Baratok",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "360": {
+    "level": 360,
+    "expRequired": 419904726,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "361": {
+    "level": 361,
+    "expRequired": 424589804,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "362": {
+    "level": 362,
+    "expRequired": 429313978,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      },
+      {
+        "name": "Mari",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "363": {
+    "level": 363,
+    "expRequired": 434077466,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "364": {
+    "level": 364,
+    "expRequired": 438880484,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "365": {
+    "level": 365,
+    "expRequired": 443723252,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "366": {
+    "level": 366,
+    "expRequired": 448605987,
+    "bosses": [
+      {
+        "name": "Gioco",
+        "difficulty": "Ultimate",
+        "bossLevel": null,
+        "location": null,
+        "exp": {}
+      }
+    ]
+  },
+  "367": {
+    "level": 367,
+    "expRequired": 453528908,
+    "bosses": []
+  },
+  "368": {
+    "level": 368,
+    "expRequired": 458492237,
+    "bosses": []
+  },
+  "369": {
+    "level": 369,
+    "expRequired": 463496192,
+    "bosses": []
+  },
+  "370": {
+    "level": 370,
+    "expRequired": 468540996,
+    "bosses": []
+  },
+  "371": {
+    "level": 371,
+    "expRequired": 473626871,
+    "bosses": []
+  },
+  "372": {
+    "level": 372,
+    "expRequired": 478754037,
+    "bosses": []
+  },
+  "373": {
+    "level": 373,
+    "expRequired": 483922719,
+    "bosses": []
+  },
+  "374": {
+    "level": 374,
+    "expRequired": 489133139,
+    "bosses": []
+  },
+  "375": {
+    "level": 375,
+    "expRequired": 494385522,
+    "bosses": []
+  },
+  "376": {
+    "level": 376,
+    "expRequired": 499680093,
+    "bosses": []
+  },
+  "377": {
+    "level": 377,
+    "expRequired": 505017077,
+    "bosses": []
+  },
+  "378": {
+    "level": 378,
+    "expRequired": 510396700,
+    "bosses": []
+  },
+  "379": {
+    "level": 379,
+    "expRequired": 515819187,
+    "bosses": []
+  },
+  "380": {
+    "level": 380,
+    "expRequired": 521284767,
+    "bosses": []
+  },
+  "381": {
+    "level": 381,
+    "expRequired": 526793667,
+    "bosses": []
+  },
+  "382": {
+    "level": 382,
+    "expRequired": 532346116,
+    "bosses": []
+  },
+  "383": {
+    "level": 383,
+    "expRequired": 537942342,
+    "bosses": []
+  },
+  "384": {
+    "level": 384,
+    "expRequired": 543582574,
+    "bosses": []
+  },
+  "385": {
+    "level": 385,
+    "expRequired": 549267043,
+    "bosses": []
+  },
+  "386": {
+    "level": 386,
+    "expRequired": 554995980,
+    "bosses": []
+  },
+  "387": {
+    "level": 387,
+    "expRequired": 560769616,
+    "bosses": []
+  },
+  "388": {
+    "level": 388,
+    "expRequired": 566588182,
+    "bosses": []
+  },
+  "389": {
+    "level": 389,
+    "expRequired": 572451912,
+    "bosses": []
+  },
+  "390": {
+    "level": 390,
+    "expRequired": 578361038,
+    "bosses": []
+  },
+  "391": {
+    "level": 391,
+    "expRequired": 584315794,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 464031,
+          "twoBreak": 429354,
+          "oneBreak": 394677,
+          "zeroBreak": 360000
+        }
+      }
+    ]
+  },
+  "392": {
+    "level": 392,
+    "expRequired": 590316415,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1082739,
+          "twoBreak": 1001826,
+          "oneBreak": 920913,
+          "zeroBreak": 840000
+        }
+      }
+    ]
+  },
+  "393": {
+    "level": 393,
+    "expRequired": 596363134,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1392093,
+          "twoBreak": 1288062,
+          "oneBreak": 1184031,
+          "zeroBreak": 1080000
+        }
+      }
+    ]
+  },
+  "394": {
+    "level": 394,
+    "expRequired": 602456189,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1546770,
+          "twoBreak": 1431180,
+          "oneBreak": 1315590,
+          "zeroBreak": 1200000
+        }
+      }
+    ]
+  },
+  "395": {
+    "level": 395,
+    "expRequired": 608595814,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
+  },
+  "396": {
+    "level": 396,
+    "expRequired": 614782247,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
+  },
+  "397": {
+    "level": 397,
+    "expRequired": 621015725,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
+  },
+  "398": {
+    "level": 398,
+    "expRequired": 627296485,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
+  },
+  "399": {
+    "level": 399,
+    "expRequired": 633624767,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
+  },
+  "400": {
+    "level": 400,
+    "expRequired": 640000809,
+    "bosses": [
+      {
+        "name": "Gegner",
+        "difficulty": "???",
+        "bossLevel": 30,
+        "location": "Progression",
+        "exp": {
+          "fullBreak": 1701447,
+          "twoBreak": 1574298,
+          "oneBreak": 1447149,
+          "zeroBreak": 1320000
+        }
+      }
+    ]
   }
 }
