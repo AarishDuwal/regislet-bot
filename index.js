@@ -133,6 +133,102 @@ function buildExpEmbed(level, percent) {
   return embed;
 }
 
+function buildLevelUpPages(currentLevel, percent, targetLevel) {
+  const eventKeywords = /box|casket|event|ticket|antique|treasure|jewel/i;
+  const diffIcon = { Ultimate: '🔴', Nightmare: '🟠', Hard: '🟡', Normal: '🟢', Easy: '⚪' };
+  const CHUNK = 9;
+
+  // ── Total EXP needed ──────────────────────────────────────────────────────
+  let totalExpNeeded = 0;
+
+  // Partial first level
+  const firstEntry = expDB[String(currentLevel)];
+  if (firstEntry?.expRequired) {
+    const done = Math.floor(firstEntry.expRequired * (percent / 100));
+    totalExpNeeded += firstEntry.expRequired - done;
+  }
+
+  // Full levels in between
+  for (let lv = currentLevel + 1; lv < targetLevel; lv++) {
+    const e = expDB[String(lv)];
+    if (e?.expRequired) totalExpNeeded += e.expRequired;
+  }
+
+  // ── Build chunks ──────────────────────────────────────────────────────────
+  // Each chunk covers up to CHUNK levels, using the middle level for boss lookup
+  const chunks = [];
+  let chunkStart = currentLevel;
+
+  while (chunkStart < targetLevel) {
+    const chunkEnd = Math.min(chunkStart + CHUNK - 1, targetLevel - 1);
+    const midLevel = Math.floor((chunkStart + chunkEnd) / 2);
+
+    // EXP needed just for this chunk
+    let chunkExp = 0;
+    for (let lv = chunkStart; lv <= chunkEnd; lv++) {
+      const e = expDB[String(lv)];
+      if (!e?.expRequired) continue;
+      if (lv === currentLevel) {
+        const done = Math.floor(e.expRequired * (percent / 100));
+        chunkExp += e.expRequired - done;
+      } else {
+        chunkExp += e.expRequired;
+      }
+    }
+
+    // Top 3 bosses at midLevel
+    const midEntry = expDB[String(midLevel)];
+    const topBosses = (midEntry?.bosses || [])
+      .filter(b => b.exp?.fullBreak && !eventKeywords.test(b.name))
+      .sort((a, b) => (b.exp.fullBreak || 0) - (a.exp.fullBreak || 0))
+      .slice(0, 3);
+
+    chunks.push({ chunkStart, chunkEnd, chunkExp, topBosses });
+    chunkStart = chunkEnd + 1;
+  }
+
+  // ── Build paginated embeds (1 chunk per page) ────────────────────────────
+  const pages = chunks.map((chunk, i) => {
+    const { chunkStart, chunkEnd, chunkExp, topBosses } = chunk;
+    const label = chunkStart === chunkEnd
+      ? `Level ${chunkStart}`
+      : `Level ${chunkStart} → ${chunkEnd}`;
+
+    const embed = new EmbedBuilder()
+      .setColor(COLORS.primary)
+      .setTitle(`🗺️  Level Up Plan — ${label}`)
+      .setDescription(
+        `**Path:** Lv ${currentLevel} (${percent}%) → Lv ${targetLevel}\n` +
+        `**Total EXP needed:** \`${formatNum(totalExpNeeded)}\`\n` +
+        `**Chunk EXP needed:** \`${formatNum(chunkExp)}\``
+      );
+
+    if (topBosses.length > 0) {
+      const bossText = topBosses.map((b, idx) => {
+        const icon = diffIcon[b.difficulty] || '⚫';
+        const loc = b.location && b.location !== 'Progression' ? `\n  📍 ${b.location}` : '';
+        return [
+          `**${idx + 1}.** ${icon} **${b.name}** (${b.difficulty}) Lv ${b.bossLevel || '?'}${loc}`,
+          `  Full break: \`${formatNum(b.exp.fullBreak)}\` EXP`,
+          b.exp.zeroBreak ? `  0 break:    \`${formatNum(b.exp.zeroBreak)}\` EXP` : null,
+        ].filter(Boolean).join('\n');
+      }).join('\n\n');
+
+      embed.addFields({ name: '👹 Top 3 Bosses for this range', value: bossText, inline: false });
+    } else {
+      embed.addFields({ name: '👹 Bosses', value: '_No boss data for this range._', inline: false });
+    }
+
+    embed.setFooter({
+      text: `Chunk ${i + 1} of ${chunks.length}  •  Full break = max EXP  •  Data: Coryn.Club`,
+    });
+
+    return embed;
+  });
+
+  return pages;
+}
+
 // ─── Trait search helpers ─────────────────────────────────────────────────────
 function searchTraitByName(query) {
   const q = normalize(query);
@@ -347,7 +443,7 @@ const commands = [
 
   new SlashCommandBuilder()
     .setName('exp')
-    .setDescription('Calculate EXP needed to level up and kills required per boss')
+    .setDescription('Calculate EXP needed to reach next level + boss kills required')
     .addIntegerOption(opt =>
       opt.setName('level')
         .setDescription('Your current level (1–314)')
@@ -361,6 +457,31 @@ const commands = [
         .setRequired(true)
         .setMinValue(0)
         .setMaxValue(99.99)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('levelup')
+    .setDescription('Plan your path from current level+% to a target level, with bosses every 9 levels')
+    .addIntegerOption(opt =>
+      opt.setName('current_level')
+        .setDescription('Your current level (1–314)')
+        .setRequired(true)
+        .setMinValue(1)
+        .setMaxValue(314)
+    )
+    .addNumberOption(opt =>
+      opt.setName('percent')
+        .setDescription('Your current level % (0–99.99)')
+        .setRequired(true)
+        .setMinValue(0)
+        .setMaxValue(99.99)
+    )
+    .addIntegerOption(opt =>
+      opt.setName('target_level')
+        .setDescription('Your target level (2–315)')
+        .setRequired(true)
+        .setMinValue(2)
+        .setMaxValue(315)
     ),
 
   new SlashCommandBuilder()
@@ -610,6 +731,10 @@ client.on('interactionCreate', async interaction => {
           value: 'Calculate EXP left to level up + boss kills needed.\n*Example: `/exp 100 65.5`*',
         },
         {
+          name: '`/levelup <current_level> <percent> <target_level>`',
+          value: 'Plan your full path to a target level. Shows top 3 bosses every 9 levels with EXP per break.\n*Example: `/levelup 100 10 200`*',
+        },
+        {
           name: '💡 Tips',
           value: [
             '• Autocomplete works while typing — press ↑ to pick suggestions.',
@@ -630,6 +755,41 @@ client.on('interactionCreate', async interaction => {
     const level = interaction.options.getInteger('level');
     const percent = interaction.options.getNumber('percent');
     return interaction.reply({ embeds: [buildExpEmbed(level, percent)] });
+  }
+
+  // ── /levelup ──────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'levelup') {
+    const currentLevel = interaction.options.getInteger('current_level');
+    const percent = interaction.options.getNumber('percent');
+    const targetLevel = interaction.options.getInteger('target_level');
+
+    if (targetLevel <= currentLevel) {
+      return interaction.reply({
+        embeds: [new EmbedBuilder()
+          .setColor(COLORS.error)
+          .setTitle('❌ Invalid Input')
+          .setDescription('Target level must be **higher** than your current level.')],
+        ephemeral: true,
+      });
+    }
+
+    const pages = buildLevelUpPages(currentLevel, percent, targetLevel);
+
+    if (pages.length === 1) {
+      return interaction.reply({ embeds: [pages[0]] });
+    }
+
+    const msg = await interaction.reply({
+      embeds: [pages[0]],
+      components: buildNavButtons('lvup', 0, pages.length),
+      fetchReply: true,
+    });
+
+    storePages(msg.id, {
+      pages,
+      buildPage: (i) => pages[i],
+      prefix: 'lvup',
+    });
   }
   // ── /trait ───────────────────────────────────────────────────────────────────
   else if (interaction.commandName === 'trait') {
