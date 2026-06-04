@@ -12,6 +12,7 @@ const {
 } = require('discord.js');
 const regislets = require('./data/regislets');
 const traits = require('./data/traits');
+const expDB = require('./data/database.json');
 
 // ─── Validate environment ──────────────────────────────────────────────────────
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -53,6 +54,83 @@ function getAllLocations() {
   const set = new Set();
   regislets.forEach(r => r.obtainedFrom.forEach(src => set.add(src)));
   return [...set].sort();
+}
+
+// ─── EXP helpers ──────────────────────────────────────────────────────────────
+function formatNum(n) {
+  if (n == null) return '?';
+  if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(2) + 'B';
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(2) + 'M';
+  if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
+  return n.toLocaleString();
+}
+
+function calcKills(expNeeded, bossExp) {
+  if (!bossExp || bossExp <= 0) return null;
+  return Math.ceil(expNeeded / bossExp);
+}
+
+function buildExpEmbed(level, percent) {
+  const entry = expDB[String(level)];
+  if (!entry || !entry.expRequired) {
+    return new EmbedBuilder()
+      .setColor(COLORS.error)
+      .setTitle('❌ Level Not Found')
+      .setDescription(`No EXP data found for level **${level}**.`);
+  }
+
+  const totalExp = entry.expRequired;
+  const expDone = Math.floor(totalExp * (percent / 100));
+  const expLeft = totalExp - expDone;
+
+  // Top 5 bosses by fullBreak EXP (exclude event/box entries)
+  const eventKeywords = /box|casket|event|ticket|antique|treasure|jewel/i;
+  const topBosses = (entry.bosses || [])
+    .filter(b => b.exp?.fullBreak && !eventKeywords.test(b.name))
+    .sort((a, b) => (b.exp.fullBreak || 0) - (a.exp.fullBreak || 0))
+    .slice(0, 5);
+
+  const diffColor = { Ultimate: '🔴', Nightmare: '🟠', Hard: '🟡', Normal: '🟢', Easy: '⚪' };
+
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.primary)
+    .setTitle(`📊  EXP Calculator — Level ${level}`)
+    .addFields(
+      {
+        name: '📈 Progress',
+        value: [
+          `Current: **${percent}%**`,
+          `EXP done: \`${formatNum(expDone)}\``,
+          `EXP left: \`${formatNum(expLeft)}\``,
+          `Total for Lv ${level}: \`${formatNum(totalExp)}\``,
+        ].join('\n'),
+        inline: false,
+      }
+    );
+
+  if (topBosses.length > 0) {
+    const bossLines = topBosses.map(b => {
+      const icon = diffColor[b.difficulty] || '⚫';
+      const kills = calcKills(expLeft, b.exp.fullBreak);
+      const killStr = kills != null ? `**${kills.toLocaleString()} kills**` : '?';
+      const loc = b.location && b.location !== 'Progression' ? ` — ${b.location}` : '';
+      return [
+        `${icon} **${b.name}** (${b.difficulty}) Lv ${b.bossLevel || '?'}${loc}`,
+        `  Full break: \`${formatNum(b.exp.fullBreak)}\` EXP → ${killStr} to level up`,
+        b.exp.zeroBreak ? `  0 break: \`${formatNum(b.exp.zeroBreak)}\` EXP → **${calcKills(expLeft, b.exp.zeroBreak)?.toLocaleString() || '?'} kills**` : null,
+      ].filter(Boolean).join('\n');
+    }).join('\n\n');
+
+    embed.addFields({ name: '👹 Top Bosses (sorted by EXP)', value: bossLines, inline: false });
+  } else {
+    embed.addFields({ name: '👹 Bosses', value: '_No boss data available for this level._', inline: false });
+  }
+
+  embed
+    .setFooter({ text: 'Full break = max EXP  •  /toram_help for all commands  •  Data: Coryn.Club' })
+    .setTimestamp();
+
+  return embed;
 }
 
 // ─── Trait search helpers ─────────────────────────────────────────────────────
@@ -99,7 +177,8 @@ function buildRegisletEmbed(r) {
         inline: false,
       }
     )
-    .setFooter({ text: 'Guide  •  /regislet  /traits  Data credits: venenako' })
+    .setFooter({ text: 'Regislet Guide  •  /regislet  /regislet_location  /regislet_list' })
+    .setTimestamp();
 
   return embed;
 }
@@ -263,8 +342,26 @@ const commands = [
     .setDescription('Browse all Regislets alphabetically (paginated)'),
 
   new SlashCommandBuilder()
-    .setName('regislet_help')
-    .setDescription('Show all available Regislet Bot commands and how to use them'),
+    .setName('toram_help')
+    .setDescription('Show all available commands and how to use them'),
+
+  new SlashCommandBuilder()
+    .setName('exp')
+    .setDescription('Calculate EXP needed to level up and kills required per boss')
+    .addIntegerOption(opt =>
+      opt.setName('level')
+        .setDescription('Your current level (1–314)')
+        .setRequired(true)
+        .setMinValue(1)
+        .setMaxValue(314)
+    )
+    .addNumberOption(opt =>
+      opt.setName('percent')
+        .setDescription('Your current level % (0–99.99)')
+        .setRequired(true)
+        .setMinValue(0)
+        .setMaxValue(99.99)
+    ),
 
   new SlashCommandBuilder()
     .setName('trait')
@@ -323,7 +420,7 @@ client.once('ready', async () => {
   }
 
   // Set bot activity
-  client.user.setActivity(`${regislets.length} regislets | ${traits.length} traits | /regislet_help`, { type: 3 });
+  client.user.setActivity(`${regislets.length} regislets | ${traits.length} traits | /toram_help`, { type: 3 });
 });
 
 // ─── Pagination cache ─────────────────────────────────────────────────────────
@@ -474,54 +571,65 @@ client.on('interactionCreate', async interaction => {
     storePages(msg.id, { pages, buildPage, prefix: 'list' });
   }
 
-  // ── /regislet_help ────────────────────────────────────────────────────────────
-  else if (interaction.commandName === 'regislet_help') {
+  // ── /toram_help ───────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'toram_help') {
     const embed = new EmbedBuilder()
       .setColor(COLORS.primary)
-      .setTitle('📖  Regislet Bot — Help')
-      .setDescription('A guide bot for searching Regislet item details and drop locations.')
+      .setTitle('📖  Toram Helper — All Commands')
+      .setDescription('Your guide bot for Toram Online — regislets, traits, and EXP calculations.')
       .addFields(
+        { name: '📜 Regislet Commands', value: '\u200b' },
         {
           name: '`/regislet <name>`',
-          value: 'Search for a regislet by name. Supports partial matching and autocomplete.\n*Example: `/regislet wind talent`*',
+          value: 'Search a regislet by name. Partial match + autocomplete.\n*Example: `/regislet wind talent`*',
         },
         {
           name: '`/regislet_location <location>`',
-          value: 'Find all regislets that drop from a specific monster or location.\n*Example: `/regislet_location El Scaro`*',
+          value: 'Find all regislets from a specific monster/location.\n*Example: `/regislet_location El Scaro`*',
         },
         {
           name: '`/regislet_list`',
-          value: 'Browse the complete list of all regislets, sorted alphabetically with pagination.',
+          value: 'Browse all regislets alphabetically.',
+        },
+        { name: '✨ Trait Commands', value: '\u200b' },
+        {
+          name: '`/trait <name>`',
+          value: 'Search an item trait by name.\n*Example: `/trait vengeful power`*',
+        },
+        {
+          name: '`/trait_tier <tier>`',
+          value: 'Browse traits by tier (1–5).\n*Example: `/trait_tier 5`*',
+        },
+        {
+          name: '`/trait_list`',
+          value: 'Browse all item traits alphabetically.',
+        },
+        { name: '📊 EXP Commands', value: '\u200b' },
+        {
+          name: '`/exp <level> <percent>`',
+          value: 'Calculate EXP left to level up + boss kills needed.\n*Example: `/exp 100 65.5`*',
         },
         {
           name: '💡 Tips',
           value: [
-            '• Autocomplete appears as you type — press ↑ to select suggestions.',
-            '• Use partial names (e.g. `wind` instead of `Wind Talent`).',
-            '• Gray items have no recorded drop source yet.',
+            '• Autocomplete works while typing — press ↑ to pick suggestions.',
+            '• Full break = maximum EXP from a boss kill.',
+            '• Gray regislets have no recorded drop source yet.',
+            '• Data sourced from Coryn.Club.',
           ].join('\n'),
-        },
-        {
-          name: '\u200b',
-          value: '**✨ Item Trait Commands**',
-        },
-        {
-          name: '`/trait <name>`',
-          value: 'Search for an item trait by name.\n*Example: `/trait vengeful power`*',
-        },
-        {
-          name: '`/trait_tier <tier>`',
-          value: 'Browse all traits available in a specific tier (1–5).\n*Example: `/trait_tier 5`*',
-        },
-        {
-          name: '`/trait_list`',
-          value: 'Browse all item traits alphabetically with pagination.',
-        },
+        }
       )
-      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits in database` })
+      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  315 levels` })
       .setTimestamp();
 
     return interaction.reply({ embeds: [embed], ephemeral: true });
+  }
+
+  // ── /exp ──────────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'exp') {
+    const level = interaction.options.getInteger('level');
+    const percent = interaction.options.getNumber('percent');
+    return interaction.reply({ embeds: [buildExpEmbed(level, percent)] });
   }
   // ── /trait ───────────────────────────────────────────────────────────────────
   else if (interaction.commandName === 'trait') {
