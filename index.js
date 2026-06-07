@@ -13,6 +13,8 @@ const {
 const regislets = require('./data/regislets');
 const traits = require('./data/traits');
 const expDB = require('./data/database.json');
+const itemsRaw = require('./data/items.json');
+const itemsArray = Object.values(itemsRaw);
 
 // ─── Validate environment ──────────────────────────────────────────────────────
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -227,6 +229,153 @@ function buildLevelUpPages(currentLevel, percent, targetLevel) {
   });
 
   return pages;
+}
+
+// ─── Items search helpers ─────────────────────────────────────────────────────
+const EQUIP_TYPES = ['1 Handed Sword','2 Handed Sword','Bow','Bowgun','Staff','Magic Device',
+  'Knuckles','Halberd','Dagger','Katana','Arrow','Shield','Armor','Additional','Special'];
+
+const CRYSTA_TYPE_NAMES = ['Normal','Weapon','Armor','Additional','Special',
+  'Enhancer (Purple)','Enhancer (Yellow)','Enhancer (Green)','Enhancer (Blue)','Enhancer (Red)'];
+
+function searchItems(query, category) {
+  const q = normalize(query);
+  if (!q) return [];
+  const pool = category ? itemsArray.filter(i => i.category === category) : itemsArray;
+  const exact = pool.filter(i => normalize(i.name) === q);
+  if (exact.length) return exact;
+  return pool.filter(i => normalize(i.name).includes(q));
+}
+
+function formatObtained(obtainedFrom) {
+  if (!obtainedFrom || obtainedFrom.length === 0) return '_Not recorded_';
+  return obtainedFrom.slice(0, 5).map(o => {
+    const monster = (o.monster || '').replace(/\s+/g, ' ').trim();
+    const map = (o.map || '').replace(/\s+/g, ' ').trim();
+    if (monster && map) return `• ${monster} — ${map}`;
+    if (monster) return `• ${monster}`;
+    if (map) return `• ${map}`;
+    return null;
+  }).filter(Boolean).join('\n');
+}
+
+// ─── Crysta embed ─────────────────────────────────────────────────────────────
+function buildCrystaEmbed(item) {
+  const isEnhancer = item.isEnhancer || (item.crystaType || '').includes('Enhancer');
+  const color = isEnhancer ? 0xfee75c : COLORS.primary;
+
+  const embed = new EmbedBuilder()
+    .setColor(color)
+    .setTitle(`💎  ${item.name}`)
+    .addFields(
+      { name: '🏷️ Type', value: `\`${item.type || item.crystaType + ' Crysta'}\``, inline: true },
+      { name: '💰 Sell', value: `\`${item.sell || '—'}\``, inline: true },
+      { name: '⚗️ Process', value: `\`${item.process || '—'}\``, inline: true },
+    );
+
+  if (item.stats && item.stats.length > 0) {
+    embed.addFields({
+      name: '📊 Stats / Effect',
+      value: item.stats.map(s => `• **${s.stat}**: ${s.amount}`).join('\n'),
+      inline: false,
+    });
+  }
+
+  const obtained = formatObtained(item.obtainedFrom);
+  embed.addFields({ name: '📍 Obtained From', value: obtained, inline: false });
+
+  if (item.usedFor && item.usedFor.length > 0) {
+    embed.addFields({
+      name: '🔮 Used For (Upgrades Into)',
+      value: item.usedFor.map(u => `• ${u}`).join('\n'),
+      inline: false,
+    });
+  }
+
+  embed.setFooter({ text: 'Crysta  •  /crysta  /crysta_type  •  Data: Coryn.Club' }).setTimestamp();
+  return embed;
+}
+
+// ─── Equipment embed ──────────────────────────────────────────────────────────
+function buildEquipEmbed(item) {
+  const embed = new EmbedBuilder()
+    .setColor(0xed4245)
+    .setTitle(`⚔️  ${item.name}`)
+    .addFields(
+      { name: '🏷️ Type', value: `\`${item.type}\``, inline: true },
+      { name: '💰 Sell', value: `\`${item.sell || '—'}\``, inline: true },
+      { name: '⚗️ Process', value: `\`${item.process || '—'}\``, inline: true },
+    );
+
+  if (item.stats && item.stats.length > 0) {
+    embed.addFields({
+      name: '📊 Stats',
+      value: item.stats.map(s => `• **${s.stat}**: ${s.amount}`).join('\n'),
+      inline: false,
+    });
+  }
+
+  const obtained = formatObtained(item.obtainedFrom);
+  embed.addFields({ name: '📍 Obtained From', value: obtained, inline: false });
+
+  embed.setFooter({ text: 'Equipment  •  /equipment  /equipment_type  •  Data: Coryn.Club' }).setTimestamp();
+  return embed;
+}
+
+// ─── Item embed (general) ─────────────────────────────────────────────────────
+function buildItemEmbed(item) {
+  if (item.category === 'Crysta') return buildCrystaEmbed(item);
+  if (item.category === 'Equipment') return buildEquipEmbed(item);
+
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.muted)
+    .setTitle(`📦  ${item.name}`)
+    .addFields(
+      { name: '🏷️ Type', value: `\`${item.type || item.category}\``, inline: true },
+      { name: '💰 Sell', value: `\`${item.sell || '—'}\``, inline: true },
+      { name: '⚗️ Process', value: `\`${item.process || '—'}\``, inline: true },
+    );
+
+  const obtained = formatObtained(item.obtainedFrom);
+  embed.addFields({ name: '📍 Obtained From', value: obtained, inline: false });
+
+  embed.setFooter({ text: `${item.category}  •  /item  •  Data: Coryn.Club` }).setTimestamp();
+  return embed;
+}
+
+// ─── Multi result embed (shared) ─────────────────────────────────────────────
+function buildItemMultiEmbed(results, query, label) {
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.primary)
+    .setTitle(`🔍  ${label} Results for "${query}"`)
+    .setDescription(`Found **${results.length}** item(s). Use the exact name for full details.`);
+
+  results.slice(0, 10).forEach(item => {
+    const source = item.obtainedFrom?.[0];
+    const sourceStr = source
+      ? (source.monster || source.map || '').replace(/\s+/g, ' ').trim().slice(0, 60)
+      : 'No source recorded';
+    embed.addFields({
+      name: `${item.name} [${item.type || item.category}]`,
+      value: [
+        item.stats?.length ? item.stats.slice(0,2).map(s => `${s.stat}: ${s.amount}`).join(' • ') : '',
+        `📍 ${sourceStr}`,
+      ].filter(Boolean).join('\n'),
+      inline: false,
+    });
+  });
+
+  if (results.length > 10) embed.setFooter({ text: `Showing 10 of ${results.length} — use a more specific name` });
+  return embed;
+}
+
+// ─── Type list page embed ─────────────────────────────────────────────────────
+function buildTypeListEmbed(items, typeName, pageIndex, totalPages, icon) {
+  return new EmbedBuilder()
+    .setColor(COLORS.primary)
+    .setTitle(`${icon}  ${typeName} — Page ${pageIndex + 1} / ${totalPages}`)
+    .setDescription(items.map(i => `• **${i.name}**`).join('\n'))
+    .setFooter({ text: `${typeName} items  •  Data: Coryn.Club` });
 }
 
 // ─── Trait search helpers ─────────────────────────────────────────────────────
@@ -513,6 +662,83 @@ const commands = [
   new SlashCommandBuilder()
     .setName('trait_list')
     .setDescription('Browse all item traits alphabetically (paginated)'),
+
+  new SlashCommandBuilder()
+    .setName('crysta')
+    .setDescription('Search a crysta by name')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Crysta name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('crysta_type')
+    .setDescription('Browse all crystas of a specific type')
+    .addStringOption(opt =>
+      opt.setName('type')
+        .setDescription('Crysta type')
+        .setRequired(true)
+        .addChoices(
+          { name: '💎 Normal', value: 'Normal' },
+          { name: '⚔️ Weapon', value: 'Weapon' },
+          { name: '🛡️ Armor', value: 'Armor' },
+          { name: '💍 Additional', value: 'Additional' },
+          { name: '✨ Special', value: 'Special' },
+          { name: '🟣 Enhancer (Purple)', value: 'Enhancer (Purple)' },
+          { name: '🟡 Enhancer (Yellow)', value: 'Enhancer (Yellow)' },
+          { name: '🟢 Enhancer (Green)', value: 'Enhancer (Green)' },
+          { name: '🔵 Enhancer (Blue)', value: 'Enhancer (Blue)' },
+          { name: '🔴 Enhancer (Red)', value: 'Enhancer (Red)' },
+        )
+    ),
+
+  new SlashCommandBuilder()
+    .setName('equipment')
+    .setDescription('Search equipment by name')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Equipment name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('equipment_type')
+    .setDescription('Browse all equipment of a specific type')
+    .addStringOption(opt =>
+      opt.setName('type')
+        .setDescription('Equipment type')
+        .setRequired(true)
+        .addChoices(
+          { name: '⚔️ 1 Handed Sword', value: '1 Handed Sword' },
+          { name: '🗡️ 2 Handed Sword', value: '2 Handed Sword' },
+          { name: '🏹 Bow', value: 'Bow' },
+          { name: '🔫 Bowgun', value: 'Bowgun' },
+          { name: '🪄 Staff', value: 'Staff' },
+          { name: '🔮 Magic Device', value: 'Magic Device' },
+          { name: '👊 Knuckles', value: 'Knuckles' },
+          { name: '🔱 Halberd', value: 'Halberd' },
+          { name: '🗡️ Dagger', value: 'Dagger' },
+          { name: '🌀 Katana', value: 'Katana' },
+          { name: '➡️ Arrow', value: 'Arrow' },
+          { name: '🛡️ Shield', value: 'Shield' },
+          { name: '🥋 Armor', value: 'Armor' },
+          { name: '💍 Additional', value: 'Additional' },
+          { name: '✨ Special', value: 'Special' },
+        )
+    ),
+
+  new SlashCommandBuilder()
+    .setName('item')
+    .setDescription('Search any item by name (all categories)')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Item name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
 ].map(cmd => cmd.toJSON());
 
 // ─── Bot ready ────────────────────────────────────────────────────────────────
@@ -541,7 +767,7 @@ client.once('ready', async () => {
   }
 
   // Set bot activity
-  client.user.setActivity(`${regislets.length} regislets | ${traits.length} traits | /toram_help`, { type: 3 });
+  client.user.setActivity(`${regislets.length} regislets | ${itemsArray.length} items | /toram_help`, { type: 3 });
 });
 
 // ─── Pagination cache ─────────────────────────────────────────────────────────
@@ -561,6 +787,26 @@ client.on('interactionCreate', async interaction => {
     const focused = interaction.options.getFocused(true);
 
     const q = normalize(focused.value);
+
+    if (focused.name === 'name' && interaction.commandName === 'crysta') {
+      const pool = itemsArray.filter(i => i.category === 'Crysta');
+      const matches = (q ? pool.filter(i => normalize(i.name).includes(q)) : pool.slice(0, 25))
+        .slice(0, 25).map(i => ({ name: `${i.name} [${i.type}]`, value: i.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
+    if (focused.name === 'name' && interaction.commandName === 'equipment') {
+      const pool = itemsArray.filter(i => i.category === 'Equipment');
+      const matches = (q ? pool.filter(i => normalize(i.name).includes(q)) : pool.slice(0, 25))
+        .slice(0, 25).map(i => ({ name: `${i.name} [${i.type}]`, value: i.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
+    if (focused.name === 'name' && interaction.commandName === 'item') {
+      const matches = (q ? itemsArray.filter(i => normalize(i.name).includes(q)) : itemsArray.slice(0, 25))
+        .slice(0, 25).map(i => ({ name: `${i.name} [${i.category}]`, value: i.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
 
     if (focused.name === 'name' && interaction.commandName === 'trait') {
       const matches = (q
@@ -734,6 +980,14 @@ client.on('interactionCreate', async interaction => {
           name: '`/levelup <current_level> <percent> <target_level>`',
           value: 'Plan your full path to a target level. Shows top 3 bosses every 9 levels with EXP per break.\n*Example: `/levelup 100 10 200`*',
         },
+        { name: '\u200b', value: '**💎 Crysta Commands**' },
+        { name: '`/crysta <name>`', value: 'Search a crysta by name.\n*Example: `/crysta accuracy`*' },
+        { name: '`/crysta_type <type>`', value: 'Browse all crystas of a type (Normal/Weapon/Armor/Additional/Special + Enhancers).' },
+        { name: '\u200b', value: '**⚔️ Equipment Commands**' },
+        { name: '`/equipment <name>`', value: 'Search equipment by name.\n*Example: `/equipment holy sword`*' },
+        { name: '`/equipment_type <type>`', value: 'Browse all equipment of a type (Sword/Staff/Bow/Knuckles/Armor etc).' },
+        { name: '\u200b', value: '**📦 General Items**' },
+        { name: '`/item <name>`', value: 'Search any item by name across all categories.\n*Example: `/item blue gelatin`*' },
         {
           name: '💡 Tips',
           value: [
@@ -744,7 +998,7 @@ client.on('interactionCreate', async interaction => {
           ].join('\n'),
         }
       )
-      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  400 levels` })
+      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  ${itemsArray.length} items  •  400 levels` })
       .setTimestamp();
 
     return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -841,6 +1095,79 @@ client.on('interactionCreate', async interaction => {
     });
 
     storePages(msg.id, { pages, buildPage, prefix: 'traitlist' });
+  }
+
+  // ── /crysta ───────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'crysta') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchItems(query, 'Crysta');
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'crysta')], ephemeral: true });
+    if (results.length === 1) return interaction.reply({ embeds: [buildCrystaEmbed(results[0])] });
+    return interaction.reply({ embeds: [buildItemMultiEmbed(results, query, 'Crysta')] });
+  }
+
+  // ── /crysta_type ──────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'crysta_type') {
+    const type = interaction.options.getString('type');
+    const results = itemsArray
+      .filter(i => i.category === 'Crysta' && i.crystaType === type)
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(type, 'crysta type')], ephemeral: true });
+
+    const PAGE_SIZE = 15;
+    const pages = [];
+    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => buildTypeListEmbed(pages[pageIndex], `${type} Crysta`, pageIndex, pages.length, '💎');
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('ctype', 0, pages.length),
+      fetchReply: true,
+    });
+    storePages(msg.id, { pages, buildPage, prefix: 'ctype' });
+  }
+
+  // ── /equipment ────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'equipment') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchItems(query, 'Equipment');
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'equipment')], ephemeral: true });
+    if (results.length === 1) return interaction.reply({ embeds: [buildEquipEmbed(results[0])] });
+    return interaction.reply({ embeds: [buildItemMultiEmbed(results, query, 'Equipment')] });
+  }
+
+  // ── /equipment_type ───────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'equipment_type') {
+    const type = interaction.options.getString('type');
+    const results = itemsArray
+      .filter(i => i.category === 'Equipment' && i.type === type)
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(type, 'equipment type')], ephemeral: true });
+
+    const PAGE_SIZE = 15;
+    const pages = [];
+    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => buildTypeListEmbed(pages[pageIndex], type, pageIndex, pages.length, '⚔️');
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('etype', 0, pages.length),
+      fetchReply: true,
+    });
+    storePages(msg.id, { pages, buildPage, prefix: 'etype' });
+  }
+
+  // ── /item ─────────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'item') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchItems(query);
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'item')], ephemeral: true });
+    if (results.length === 1) return interaction.reply({ embeds: [buildItemEmbed(results[0])] });
+    return interaction.reply({ embeds: [buildItemMultiEmbed(results, query, 'Item')] });
   }
 
 });
