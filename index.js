@@ -404,65 +404,64 @@ const TYPE_ICONS = { Boss: '🔴', 'Mini-Boss': '🟠', 'Mini Boss': '🟠', Nor
 function buildMapEmbed(map) {
   const embed = new EmbedBuilder()
     .setColor(COLORS.success)
-    .setTitle(`🗺️  ${map.name}`)
-    .addFields(
-      { name: '📖 Chapter', value: map.chapter || '—', inline: true },
-      { name: '📦 Chests', value: `${map.chests || 0}`, inline: true },
-      { name: '🆔 Map ID', value: `${map.mapId || map.id}`, inline: true },
-    );
+    .setTitle(`🗺️  ${map.name}`);
 
-  // Monsters — split by type, exclude NPCs
-  const bosses = (map.monsters || []).filter(m => m.type === 'Boss' || m.type === 'Mini-Boss' || m.type === 'Mini Boss');
-  const normals = (map.monsters || []).filter(m => m.type === 'Normal');
-  const npcs = (map.monsters || []).filter(m => m.type === 'NPC');
+  const obtainables = map.obtainables || [];
+  const monsters = map.monsters || [];
+
+  // Group obtainables by source
+  const bySource = {};
+  obtainables.forEach(o => {
+    const src = o.source || 'Unknown';
+    if (!bySource[src]) bySource[src] = [];
+    bySource[src].push(o);
+  });
+
+  // Bosses and their drops
+  const bosses = monsters.filter(m => m.type === 'Boss' || m.type === 'Mini-Boss' || m.type === 'Mini Boss');
+  const normals = monsters.filter(m => m.type === 'Normal');
+  const npcs = monsters.filter(m => m.type === 'NPC');
 
   if (bosses.length > 0) {
-    embed.addFields({
-      name: `🔴 Bosses (${bosses.length})`,
-      value: bosses.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
-      inline: false,
-    });
+    const bossText = bosses.map(b => {
+      const bName = b.name.replace(/\s*\(Lv\s*\d+\)/i, '').trim();
+      const drops = bySource[bName] || [];
+      const dropStr = drops.length > 0
+        ? '\n' + drops.slice(0, 5).map(d => `  ↳ [${d.itemType}] ${d.itemName}`).join('\n')
+        : '';
+      return `${TYPE_ICONS[b.type] || '🔴'} **${b.name}**${dropStr}`;
+    }).join('\n');
+    embed.addFields({ name: `Bosses (${bosses.length})`, value: bossText.slice(0, 1024), inline: false });
   }
 
   if (normals.length > 0) {
-    embed.addFields({
-      name: `🟢 Monsters (${normals.length})`,
-      value: normals.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
-      inline: false,
-    });
+    const normalText = normals.map(n => {
+      const nName = n.name.replace(/\s*\(Lv\s*\d+\)/i, '').trim();
+      const drops = bySource[nName] || [];
+      const dropStr = drops.length > 0
+        ? '\n' + drops.slice(0, 4).map(d => `  ↳ [${d.itemType}] ${d.itemName}`).join('\n')
+        : '';
+      return `🟢 **${n.name}**${dropStr}`;
+    }).join('\n');
+    embed.addFields({ name: `Monsters (${normals.length})`, value: normalText.slice(0, 1024), inline: false });
   }
 
   if (npcs.length > 0) {
-    embed.addFields({
-      name: `🔵 NPCs (${npcs.length})`,
-      value: npcs.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
-      inline: false,
-    });
+    const npcText = npcs.map(n => {
+      const drops = bySource[n.name] || [];
+      const dropStr = drops.length > 0
+        ? '\n' + drops.slice(0, 4).map(d => `  ↳ [${d.itemType}] ${d.itemName}`).join('\n')
+        : '';
+      return `🔵 **${n.name}**${dropStr}`;
+    }).join('\n');
+    embed.addFields({ name: `NPCs (${npcs.length})`, value: npcText.slice(0, 1024), inline: false });
   }
 
-  // Chest items only — obtainables with no source (chest) or source === null
-  // Actually in data, chest items come from NPCs — show items from non-monster sources
-  const chestItems = (map.obtainables || []).filter(o => {
-    // Items from NPCs that are shops/exchange, not monster drops
-    return o.source === null || (o.source && !bosses.find(b => b.name.includes(o.source?.split(' ')[0])));
-  });
-
-  if (map.chests > 0) {
-    const uniqueChestItems = [...new Map(
-      (map.obtainables || []).filter(o => !o.source || o.source === null)
-        .map(o => [o.itemName, o])
-    ).values()].slice(0, 15);
-
-    if (uniqueChestItems.length > 0) {
-      embed.addFields({
-        name: '📦 Chest Items',
-        value: uniqueChestItems.map(o => `• [${o.itemType}] ${o.itemName}`).join('\n').slice(0, 1024),
-        inline: false,
-      });
-    }
+  if (bosses.length === 0 && normals.length === 0 && npcs.length === 0) {
+    embed.setDescription('_No monster or NPC data recorded for this map._');
   }
 
-  embed.setFooter({ text: `Map  •  /map  /map_drops  •  Data: Coryn.Club` }).setTimestamp();
+  embed.setFooter({ text: 'Map  •  /map  /map_drops  •  Data: Coryn.Club' }).setTimestamp();
   return embed;
 }
 
