@@ -1488,31 +1488,11 @@ client.on('interactionCreate', async interaction => {
     if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'monster')], ephemeral: true });
     if (results.length === 1) return interaction.reply({ embeds: [buildMonsterEmbed(results[0])] });
 
-    // Multiple results — show list with pagination
-    const PAGE_SIZE = 8;
-    const pages = [];
-    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
-
+    // Multiple results — show each as full detailed embed with pagination
+    const pages = results;
     const buildPage = (pageIndex) => {
-      const embed = new EmbedBuilder()
-        .setColor(COLORS.error)
-        .setTitle(`🔍  Monsters matching "${query}"`)
-        .setDescription(`Found **${results.length}** monsters  •  Page **${pageIndex + 1}** / **${pages.length}**\nUse exact name for full details.`);
-
-      pages[pageIndex].forEach(m => {
-        const modeStr = m.mode && m.mode !== 'Normal' ? ` [${m.mode}]` : '';
-        const eventStr = m.eventTag ? ` ⭐` : '';
-        embed.addFields({
-          name: `${m.name}${modeStr}${eventStr} — Lv ${m.level ?? '?'} ${m.type || ''}`,
-          value: [
-            m.spawnAt ? `📍 ${m.spawnAt}` : null,
-            m.drops.length > 0 ? `💧 ${m.drops.slice(0,3).map(d => d.itemName).join(', ')}${m.drops.length > 3 ? `... (+${m.drops.length - 3})` : ''}` : '💧 No drops',
-          ].filter(Boolean).join('\n'),
-          inline: false,
-        });
-      });
-
-      embed.setFooter({ text: `${results.length} results  •  /monster <exact name> for full details` });
+      const embed = buildMonsterEmbed(pages[pageIndex]);
+      embed.setFooter({ text: `Result ${pageIndex + 1} of ${pages.length}  •  Monster  •  Data: Coryn.Club` });
       return embed;
     };
 
