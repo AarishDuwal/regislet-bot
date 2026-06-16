@@ -15,6 +15,10 @@ const traits = require('./data/traits');
 const expDB = require('./data/database.json');
 const itemsRaw = require('./data/items.json');
 const itemsArray = Object.values(itemsRaw);
+const mapsRaw = require('./data/maps.json');
+const mapsArray = Object.values(mapsRaw);
+const monstersRaw = require('./data/monsters.json');
+const monstersArray = Object.values(monstersRaw);
 
 // ─── Validate environment ──────────────────────────────────────────────────────
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -366,6 +370,180 @@ function buildItemMultiEmbed(results, query, label) {
   });
 
   if (results.length > 10) embed.setFooter({ text: `Showing 10 of ${results.length} — use a more specific name` });
+  return embed;
+}
+
+// ─── Map & Monster search helpers ────────────────────────────────────────────
+function searchMaps(query) {
+  const q = normalize(query);
+  if (!q) return [];
+  const exact = mapsArray.filter(m => normalize(m.name) === q);
+  if (exact.length) return exact;
+  return mapsArray.filter(m => normalize(m.name).includes(q));
+}
+
+function searchMonsters(query) {
+  const q = normalize(query);
+  if (!q) return [];
+  const exact = monstersArray.filter(m => normalize(m.name) === q);
+  if (exact.length) return exact;
+  return monstersArray.filter(m => normalize(m.name).includes(q));
+}
+
+function searchMonstersByDrop(query) {
+  const q = normalize(query);
+  if (!q) return [];
+  return monstersArray.filter(m =>
+    m.drops.some(d => normalize(d.itemName).includes(q))
+  );
+}
+
+// ─── Map embed ────────────────────────────────────────────────────────────────
+const TYPE_ICONS = { Boss: '🔴', 'Mini-Boss': '🟠', 'Mini Boss': '🟠', Normal: '🟢', NPC: '🔵' };
+
+function buildMapEmbed(map) {
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.success)
+    .setTitle(`🗺️  ${map.name}`)
+    .addFields(
+      { name: '📖 Chapter', value: map.chapter || '—', inline: true },
+      { name: '📦 Chests', value: `${map.chests || 0}`, inline: true },
+      { name: '🆔 Map ID', value: `${map.mapId || map.id}`, inline: true },
+    );
+
+  // Monsters — split by type, exclude NPCs
+  const bosses = (map.monsters || []).filter(m => m.type === 'Boss' || m.type === 'Mini-Boss' || m.type === 'Mini Boss');
+  const normals = (map.monsters || []).filter(m => m.type === 'Normal');
+  const npcs = (map.monsters || []).filter(m => m.type === 'NPC');
+
+  if (bosses.length > 0) {
+    embed.addFields({
+      name: `🔴 Bosses (${bosses.length})`,
+      value: bosses.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
+      inline: false,
+    });
+  }
+
+  if (normals.length > 0) {
+    embed.addFields({
+      name: `🟢 Monsters (${normals.length})`,
+      value: normals.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
+      inline: false,
+    });
+  }
+
+  if (npcs.length > 0) {
+    embed.addFields({
+      name: `🔵 NPCs (${npcs.length})`,
+      value: npcs.map(m => `• ${m.name}`).join('\n').slice(0, 1024),
+      inline: false,
+    });
+  }
+
+  // Chest items only — obtainables with no source (chest) or source === null
+  // Actually in data, chest items come from NPCs — show items from non-monster sources
+  const chestItems = (map.obtainables || []).filter(o => {
+    // Items from NPCs that are shops/exchange, not monster drops
+    return o.source === null || (o.source && !bosses.find(b => b.name.includes(o.source?.split(' ')[0])));
+  });
+
+  if (map.chests > 0) {
+    const uniqueChestItems = [...new Map(
+      (map.obtainables || []).filter(o => !o.source || o.source === null)
+        .map(o => [o.itemName, o])
+    ).values()].slice(0, 15);
+
+    if (uniqueChestItems.length > 0) {
+      embed.addFields({
+        name: '📦 Chest Items',
+        value: uniqueChestItems.map(o => `• [${o.itemType}] ${o.itemName}`).join('\n').slice(0, 1024),
+        inline: false,
+      });
+    }
+  }
+
+  embed.setFooter({ text: `Map  •  /map  /map_drops  •  Data: Coryn.Club` }).setTimestamp();
+  return embed;
+}
+
+// ─── Monster embed ────────────────────────────────────────────────────────────
+const MODE_COLORS = {
+  Ultimate: 0xed4245, Nightmare: 0xe67e22, 'Very Hard': 0xf1c40f,
+  Hard: 0xfee75c, Normal: 0x57f287, Easy: 0x99aab5,
+};
+
+function buildMonsterEmbed(monster) {
+  const color = MODE_COLORS[monster.mode] || COLORS.primary;
+  const eventStr = monster.eventTag ? `\n> ⭐ Event: **${monster.eventTag}**` : '';
+
+  const embed = new EmbedBuilder()
+    .setColor(color)
+    .setTitle(`👹  ${monster.name}`)
+    .setDescription(`${eventStr}`.trim() || null)
+    .addFields(
+      { name: '🎚️ Level', value: `\`${monster.level ?? '?'}\``, inline: true },
+      { name: '🏷️ Type', value: `\`${monster.type || '?'}\``, inline: true },
+      { name: '⚔️ Mode', value: `\`${monster.mode || 'Normal'}\``, inline: true },
+      { name: '❤️ HP', value: `\`${monster.hp !== null ? monster.hp.toLocaleString() : '?'}\``, inline: true },
+      { name: '⭐ EXP', value: `\`${monster.exp !== null ? monster.exp.toLocaleString() : '?'}\``, inline: true },
+      { name: '🌊 Element', value: `\`${monster.element || '?'}\``, inline: true },
+      { name: '🐾 Tamable', value: monster.tamable ? '✅ Yes' : '❌ No', inline: true },
+      { name: '📍 Spawn At', value: monster.spawnAt || '—', inline: true },
+      { name: '\u200b', value: '\u200b', inline: true },
+    );
+
+  if (monster.drops && monster.drops.length > 0) {
+    embed.addFields({
+      name: `💧 Item Drops (${monster.drops.length})`,
+      value: monster.drops.slice(0, 15).map(d => `• [${d.itemType}] ${d.itemName}`).join('\n').slice(0, 1024),
+      inline: false,
+    });
+    if (monster.drops.length > 15) {
+      embed.addFields({ name: '\u200b', value: `_...and ${monster.drops.length - 15} more drops_`, inline: false });
+    }
+  } else {
+    embed.addFields({ name: '💧 Item Drops', value: '_No drops recorded_', inline: false });
+  }
+
+  embed.setFooter({ text: 'Monster  •  /monster  /monster_drop  •  Data: Coryn.Club' }).setTimestamp();
+  return embed;
+}
+
+// Multi-result embeds for map and monster
+function buildMapMultiEmbed(results, query) {
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.success)
+    .setTitle(`🔍  Map Results for "${query}"`)
+    .setDescription(`Found **${results.length}** map(s). Use exact name for full details.`);
+  results.slice(0, 10).forEach(m => {
+    const monsterCount = (m.monsters || []).filter(x => x.type !== 'NPC').length;
+    embed.addFields({
+      name: `${m.name}`,
+      value: `${m.chapter || '?'} • Map ID ${m.mapId || m.id} • ${monsterCount} monsters • ${m.chests || 0} chests`,
+      inline: false,
+    });
+  });
+  if (results.length > 10) embed.setFooter({ text: `Showing 10 of ${results.length}` });
+  return embed;
+}
+
+function buildMonsterMultiEmbed(results, query) {
+  const embed = new EmbedBuilder()
+    .setColor(COLORS.error)
+    .setTitle(`🔍  Monster Results for "${query}"`)
+    .setDescription(`Found **${results.length}** monster(s). Use exact name for full details.`);
+  results.slice(0, 10).forEach(m => {
+    const modeStr = m.mode && m.mode !== 'Normal' ? ` [${m.mode}]` : '';
+    embed.addFields({
+      name: `${m.name}${modeStr} — Lv ${m.level ?? '?'} ${m.type || ''}`,
+      value: [
+        m.spawnAt ? `📍 ${m.spawnAt}` : null,
+        m.drops.length > 0 ? `💧 ${m.drops.slice(0,3).map(d => d.itemName).join(', ')}${m.drops.length > 3 ? '...' : ''}` : 'No drops',
+      ].filter(Boolean).join('\n'),
+      inline: false,
+    });
+  });
+  if (results.length > 10) embed.setFooter({ text: `Showing 10 of ${results.length}` });
   return embed;
 }
 
@@ -739,6 +917,46 @@ const commands = [
         .setRequired(true)
         .setAutocomplete(true)
     ),
+
+  new SlashCommandBuilder()
+    .setName('map')
+    .setDescription('Search a map by name — shows monsters, NPCs and chest items')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Map name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('map_drops')
+    .setDescription('Show all obtainable items from a map including monster drops')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Map name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('monster')
+    .setDescription('Search a monster by name — shows stats and drops')
+    .addStringOption(opt =>
+      opt.setName('name')
+        .setDescription('Monster name — partial match + autocomplete')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  new SlashCommandBuilder()
+    .setName('monster_drop')
+    .setDescription('Find which monsters drop a specific item')
+    .addStringOption(opt =>
+      opt.setName('item')
+        .setDescription('Item name to search for in monster drops')
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
 ].map(cmd => cmd.toJSON());
 
 // ─── Bot ready ────────────────────────────────────────────────────────────────
@@ -767,7 +985,7 @@ client.once('ready', async () => {
   }
 
   // Set bot activity
-  client.user.setActivity(`${regislets.length} regislets | ${itemsArray.length} items | /toram_help`, { type: 3 });
+  client.user.setActivity(`${mapsArray.length} maps | ${monstersArray.length} monsters | /toram_help`, { type: 3 });
 });
 
 // ─── Pagination cache ─────────────────────────────────────────────────────────
@@ -805,6 +1023,28 @@ client.on('interactionCreate', async interaction => {
     if (focused.name === 'name' && interaction.commandName === 'item') {
       const matches = (q ? itemsArray.filter(i => normalize(i.name).includes(q)) : itemsArray.slice(0, 25))
         .slice(0, 25).map(i => ({ name: `${i.name} [${i.category}]`, value: i.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
+    if (focused.name === 'name' && (interaction.commandName === 'map' || interaction.commandName === 'map_drops')) {
+      const matches = (q ? mapsArray.filter(m => normalize(m.name).includes(q)) : mapsArray.slice(0, 25))
+        .slice(0, 25).map(m => ({ name: m.name, value: m.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
+    if (focused.name === 'name' && interaction.commandName === 'monster') {
+      const matches = (q ? monstersArray.filter(m => normalize(m.name).includes(q)) : monstersArray.slice(0, 25))
+        .slice(0, 25).map(m => ({ name: `${m.name} Lv${m.level || '?'} [${m.type || '?'}]`, value: m.name }));
+      return interaction.respond(matches).catch(() => {});
+    }
+
+    if (focused.name === 'item' && interaction.commandName === 'monster_drop') {
+      // Autocomplete from all unique drop item names
+      const allDrops = new Set();
+      monstersArray.forEach(m => m.drops.forEach(d => allDrops.add(d.itemName)));
+      const dropList = [...allDrops];
+      const matches = (q ? dropList.filter(d => normalize(d).includes(q)) : dropList.slice(0, 25))
+        .slice(0, 25).map(d => ({ name: d, value: d }));
       return interaction.respond(matches).catch(() => {});
     }
 
@@ -988,6 +1228,12 @@ client.on('interactionCreate', async interaction => {
         { name: '`/equipment_type <type>`', value: 'Browse all equipment of a type (Sword/Staff/Bow/Knuckles/Armor etc).' },
         { name: '\u200b', value: '**📦 General Items**' },
         { name: '`/item <name>`', value: 'Search any item by name across all categories.\n*Example: `/item blue gelatin`*' },
+        { name: '\u200b', value: '**🗺️ Map Commands**' },
+        { name: '`/map <name>`', value: 'Show map info — monsters, NPCs and chest items.\n*Example: `/map sofya city`*' },
+        { name: '`/map_drops <name>`', value: 'Show all obtainable items from a map including monster drops.\n*Example: `/map_drops rakau plains`*' },
+        { name: '\u200b', value: '**👹 Monster Commands**' },
+        { name: '`/monster <name>`', value: 'Search a monster — shows stats, element, spawn location and drops.\n*Example: `/monster torpo`*' },
+        { name: '`/monster_drop <item>`', value: 'Find which monsters drop a specific item.\n*Example: `/monster_drop pointed hat`*' },
         {
           name: '💡 Tips',
           value: [
@@ -998,7 +1244,7 @@ client.on('interactionCreate', async interaction => {
           ].join('\n'),
         }
       )
-      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  ${itemsArray.length} items  •  400 levels` })
+      .setFooter({ text: `${regislets.length} regislets  •  ${traits.length} traits  •  ${itemsArray.length} items  •  ${mapsArray.length} maps  •  ${monstersArray.length} monsters` })
       .setTimestamp();
 
     return interaction.reply({ embeds: [embed], ephemeral: true });
@@ -1168,6 +1414,165 @@ client.on('interactionCreate', async interaction => {
     if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'item')], ephemeral: true });
     if (results.length === 1) return interaction.reply({ embeds: [buildItemEmbed(results[0])] });
     return interaction.reply({ embeds: [buildItemMultiEmbed(results, query, 'Item')] });
+  }
+
+  // ── /map ──────────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'map') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchMaps(query);
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'map')], ephemeral: true });
+    if (results.length === 1) return interaction.reply({ embeds: [buildMapEmbed(results[0])] });
+    return interaction.reply({ embeds: [buildMapMultiEmbed(results, query)] });
+  }
+
+  // ── /map_drops ────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'map_drops') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchMaps(query);
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'map')], ephemeral: true });
+
+    const map = results[0];
+    const obtainables = map.obtainables || [];
+
+    if (!obtainables.length) {
+      return interaction.reply({
+        embeds: [new EmbedBuilder()
+          .setColor(COLORS.muted)
+          .setTitle(`📦  ${map.name} — No Drop Data`)
+          .setDescription('No obtainable items recorded for this map.')],
+      });
+    }
+
+    const PAGE_SIZE = 15;
+    // Group by source
+    const grouped = {};
+    obtainables.forEach(o => {
+      const src = o.source || 'Unknown';
+      if (!grouped[src]) grouped[src] = [];
+      grouped[src].push(o);
+    });
+
+    const pages = [];
+    const sources = Object.entries(grouped);
+    for (let i = 0; i < sources.length; i += 3) pages.push(sources.slice(i, i + 3));
+
+    const buildPage = (pageIndex) => {
+      const embed = new EmbedBuilder()
+        .setColor(COLORS.success)
+        .setTitle(`📦  ${map.name} — All Drops`)
+        .setDescription(`Page **${pageIndex + 1}** / **${pages.length}**  •  ${obtainables.length} total items`);
+
+      pages[pageIndex].forEach(([source, items]) => {
+        embed.addFields({
+          name: `📍 ${source}`,
+          value: items.slice(0, 10).map(i => `• [${i.itemType}] ${i.itemName}`).join('\n').slice(0, 1024),
+          inline: false,
+        });
+      });
+
+      embed.setFooter({ text: 'Map Drops  •  /map_drops  •  Data: Coryn.Club' });
+      return embed;
+    };
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('mapdrops', 0, pages.length),
+      fetchReply: true,
+    });
+    storePages(msg.id, { pages, buildPage, prefix: 'mapdrops' });
+  }
+
+  // ── /monster ──────────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'monster') {
+    const query = interaction.options.getString('name').trim();
+    const results = searchMonsters(query);
+    if (!results.length) return interaction.reply({ embeds: [buildNotFoundEmbed(query, 'monster')], ephemeral: true });
+    if (results.length === 1) return interaction.reply({ embeds: [buildMonsterEmbed(results[0])] });
+
+    // Multiple results — show list with pagination
+    const PAGE_SIZE = 8;
+    const pages = [];
+    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => {
+      const embed = new EmbedBuilder()
+        .setColor(COLORS.error)
+        .setTitle(`🔍  Monsters matching "${query}"`)
+        .setDescription(`Found **${results.length}** monsters  •  Page **${pageIndex + 1}** / **${pages.length}**\nUse exact name for full details.`);
+
+      pages[pageIndex].forEach(m => {
+        const modeStr = m.mode && m.mode !== 'Normal' ? ` [${m.mode}]` : '';
+        const eventStr = m.eventTag ? ` ⭐` : '';
+        embed.addFields({
+          name: `${m.name}${modeStr}${eventStr} — Lv ${m.level ?? '?'} ${m.type || ''}`,
+          value: [
+            m.spawnAt ? `📍 ${m.spawnAt}` : null,
+            m.drops.length > 0 ? `💧 ${m.drops.slice(0,3).map(d => d.itemName).join(', ')}${m.drops.length > 3 ? `... (+${m.drops.length - 3})` : ''}` : '💧 No drops',
+          ].filter(Boolean).join('\n'),
+          inline: false,
+        });
+      });
+
+      embed.setFooter({ text: `${results.length} results  •  /monster <exact name> for full details` });
+      return embed;
+    };
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('mon', 0, pages.length),
+      fetchReply: true,
+    });
+    storePages(msg.id, { pages, buildPage, prefix: 'mon' });
+  }
+
+  // ── /monster_drop ─────────────────────────────────────────────────────────────
+  else if (interaction.commandName === 'monster_drop') {
+    const query = interaction.options.getString('item').trim();
+    const results = searchMonstersByDrop(query);
+
+    if (!results.length) {
+      return interaction.reply({
+        embeds: [new EmbedBuilder()
+          .setColor(COLORS.error)
+          .setTitle('❌ No Results')
+          .setDescription(`No monsters found that drop **${query}**.\nTry a partial name like \`pointed hat\`.`)],
+        ephemeral: true,
+      });
+    }
+
+    const PAGE_SIZE = 8;
+    const pages = [];
+    for (let i = 0; i < results.length; i += PAGE_SIZE) pages.push(results.slice(i, i + PAGE_SIZE));
+
+    const buildPage = (pageIndex) => {
+      const embed = new EmbedBuilder()
+        .setColor(COLORS.warning)
+        .setTitle(`💧  Monsters that drop "${query}"`)
+        .setDescription(`Found **${results.length}** monster(s)  •  Page **${pageIndex + 1}** / **${pages.length}**`);
+
+      pages[pageIndex].forEach(m => {
+        const modeStr = m.mode && m.mode !== 'Normal' ? ` [${m.mode}]` : '';
+        const matchingDrops = m.drops.filter(d => normalize(d.itemName).includes(normalize(query)));
+        embed.addFields({
+          name: `${m.name}${modeStr} — Lv ${m.level ?? '?'} (${m.type || '?'})`,
+          value: [
+            m.spawnAt ? `📍 ${m.spawnAt}` : null,
+            `💧 ${matchingDrops.map(d => `[${d.itemType}] ${d.itemName}`).join(', ')}`,
+          ].filter(Boolean).join('\n'),
+          inline: false,
+        });
+      });
+
+      embed.setFooter({ text: 'Monster Drop  •  /monster_drop  •  Data: Coryn.Club' });
+      return embed;
+    };
+
+    const msg = await interaction.reply({
+      embeds: [buildPage(0)],
+      components: buildNavButtons('mdrop', 0, pages.length),
+      fetchReply: true,
+    });
+    storePages(msg.id, { pages, buildPage, prefix: 'mdrop' });
   }
 
 });
